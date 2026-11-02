@@ -1,0 +1,12 @@
+{
+  "name": "smarttools-pro-creator-workspace",
+  "version": "2.0.0",
+  "private": true,
+  "description": "A focused Telegram creator workspace with optional AdsGram interstitial placement",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

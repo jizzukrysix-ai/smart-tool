@@ -1,36 +1,69 @@
-# Smart Utility Desk v1.1 Full-stack
+# SmartTools Pro — Telegram Mini App
 
-Plain HTML/CSS/JavaScript Telegram Mini App with Node.js/Express backend.
+An original, offline-first utility mini app. Core tools work without ads. AdsGram is an explicitly user-initiated optional placement.
 
-## Features
-Text analyzer/converter, length/weight/temperature converter, local quick notes, countdown timer/stopwatch, QR generator, Telegram Web Apps SDK, backend Telegram initData HMAC validation, AdsGram.ai Rewarded/Interstitial SDK integration.
+## Included tools
+- Text Lab: word/character count, case conversion, trim and whitespace cleanup
+- Unit Converter: length, weight and temperature
+- Quick Notes: create, edit, delete and locally save notes
+- Timer & Stopwatch
+- QR Generator (uses a public QRCodeJS CDN when online)
+- About, Privacy and Terms pages
 
-## Setup
-Requires Node.js 20+, a Telegram bot from @BotFather and (optionally) AdsGram.ai publisher blocks.
-1. Copy `.env.example` to `.env`.
-2. Set `TELEGRAM_BOT_TOKEN` from @BotFather. Keep it server-side only.
-3. Optionally set AdsGram block IDs from your AdsGram.ai publisher dashboard.
-4. Run `npm install` then `npm run dev`.
-5. Visit `http://localhost:3000`. Telegram authentication requires launching the Mini App inside Telegram; direct browser visits are not authenticated Telegram sessions.
+## Run locally
+Requires Node.js 20+.
 
-## AdsGram.ai
-This code targets `partner.adsgram.ai` / `docs.adsgram.ai`.
-- SDK: `https://sad.adsgram.ai/js/sad.min.js`
-- Rewarded ID: `ADSGRAM_REWARDED_BLOCK_ID`
-- Interstitial ID: `ADSGRAM_INTERSTITIAL_BLOCK_ID`
-- IDs are public placement identifiers, not secrets; `/api/config` supplies them to the browser.
-- Set `ADSGRAM_DEBUG=false` in production.
-- This demo grants no cash, points or valuable reward. Do not treat a client-side callback as authoritative proof for valuable rewards. Implement rewards only if your account has a documented server-verifiable completion mechanism.
-- Do not mix IDs or SDKs from different similarly named products/domains.
+```bash
+npm start
+```
 
-## Telegram security
-Frontend sends raw `Telegram.WebApp.initData` to `/api/telegram/session`; backend verifies HMAC with bot token and checks `auth_date`. `initDataUnsafe` is display-only, never authentication. This demo returns a minimal verified profile but does not create persistent login sessions or a database. Protect future private endpoints with verified sessions or fresh initData validation.
+Open `http://localhost:3000`. Health check: `http://localhost:3000/health`.
 
-## API
-`GET /api/health`; `GET /api/config`; `POST /api/telegram/session` with `{ "initData": "<raw Telegram.WebApp.initData>" }`.
+## Deploy to Render
+1. Push this folder to a new GitHub repository.
+2. In Render, create a new **Web Service** from that repository.
+3. Render can detect `render.yaml`; otherwise use:
+   - Build command: `npm install`
+   - Start command: `npm start`
+   - Health check path: `/health`
+4. Wait for the service to become Live and test `/health`.
+5. Set the HTTPS URL as the Telegram Mini App URL in BotFather.
 
-## Deploy
-This is a Node server, not static-only hosting. Push to GitHub without `.env`; create a Node service on Render, Railway or VPS; install `npm install`; start `npm start`; set `TELEGRAM_BOT_TOKEN`, AdsGram IDs, `ADSGRAM_DEBUG=false`, `NODE_ENV=production`; enable HTTPS; test `/api/health`; set deployed URL in @BotFather; test inside Telegram on Android/Desktop.
+## Telegram setup
+1. Open `@BotFather` and select your bot.
+2. Use `/setmenubutton` and choose the bot.
+3. Set button text to `Open App`.
+4. Set the Web App URL to your Render HTTPS URL.
+5. Open the app from the actual Telegram bot and test on mobile and desktop.
 
-## Before moderation
-Add real support contact; update privacy disclosures to match hosting/CDNs/logs/ads; test all tools; keep core tools usable without ads; never fabricate audience or rewards; submit the actual working URL. Approval cannot be guaranteed.
+The app calls `Telegram.WebApp.ready()` and `expand()` when available. It does not trust browser-supplied Telegram identity for any server-side action because this starter has no authenticated backend actions or user accounts.
+
+## AdsGram setup — optional and user initiated
+1. Create/register the Mini App platform in the AdsGram Publisher dashboard.
+2. Make sure the platform URL matches the final Render HTTPS URL exactly.
+3. Create an ad block for the correct format and obtain its `blockId`.
+4. In `public/index.html`, replace `YOUR_ADSGRAM_BLOCK_ID` in `window.APP_CONFIG` with your real block ID.
+5. Keep the `Show optional ad` button as a deliberate user action. The app does not auto-show ads on load, on every click, or as a condition for using tools.
+6. Test in Telegram with the real AdsGram block. If no fill or SDK error occurs, the tools remain usable.
+
+This project uses the AdsGram publisher SDK pattern:
+- `https://sad.adsgram.ai/js/sad.min.js`
+- `window.Adsgram.init({ blockId })`
+- `controller.show()`
+
+Use the exact SDK and format supported by your AdsGram Publisher account and current documentation. Never substitute a made-up block ID. AdsGram moderation/approval is decided by AdsGram, not by this code.
+
+## Important production checklist
+- Replace the support contact and policy contact details with a real contact you control.
+- Publish the privacy policy at the final HTTPS URL and update the in-app links if you move it.
+- Test all controls on Telegram Android, iOS and Desktop.
+- Confirm that the Mini App link, bot username, bot ID and submitted Web App URL match.
+- Keep genuine audience activity; do not buy, simulate or inflate traffic.
+- Show AdsGram placement clearly in the app before submission.
+- Do not promise cash payouts or rewards unless you can actually fulfill and verify them.
+- This app stores notes locally in the user's browser storage. Clearing Telegram/browser data may delete them. No cloud sync is provided.
+
+## Files
+- `public/` — app UI and client-side tools
+- `server.js` — small static Node server and health endpoint
+- `render.yaml` — Render deployment configuration
