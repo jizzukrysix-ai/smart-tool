@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101713">
+  <meta name="description" content="A focused workspace for planning, writing and preparing Telegram content.">
+  <title>SmartTools Pro — Creator Workspace</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="https://telegram.org/js/telegram-web-app.js?64"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+  <script>
+    // Paste the numeric block ID from your AdsGram Publisher dashboard.
+    // Keep it as a string. Never place your Telegram bot token here.
+    window.APP_CONFIG = Object.freeze({
+      adsgramBlockId: "YOUR_ADSGRAM_BLOCK_ID",
+      adsgramScriptUrl: "https://sad.adsgram.ai/js/sad.min.js"
+    });
+  </script>
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="SmartTools Pro home">
+        <span class="brand-symbol"><span></span><span></span><span></span></span>
+        <span class="brand-copy"><strong>smarttools<span>.</span></strong><small>CREATOR WORKSPACE</small></span>
+      </a>
+      <div class="header-right">
+        <span class="local-status"><i></i> LOCAL WORKSPACE</span>
+        <button class="profile-button" id="profile-button" aria-label="About this app">ST</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="welcome">
+        <div class="welcome-copy">
+          <p class="kicker">YOUR IDEAS, IN GOOD ORDER</p>
+          <h1>Make room for<br><span>better work.</span></h1>
+          <p class="welcome-desc">A practical studio for writing posts, organizing ideas and getting your content ready to publish.</p>
+          <div class="welcome-actions"><button class="button button-dark" data-open="composer">Create a post <b>↗</b></button><span class="micro-note">No account. No paywall.</span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="art-orbit orbit-a"></div><div class="art-orbit orbit-b"></div>
+          <div class="art-paper">
+            <div class="paper-top"><span></span><span></span><span></span><small>DRAFT / 001</small></div>
+            <div class="paper-line line-wide"></div><div class="paper-line line-mid"></div><div class="paper-line line-short"></div>
+            <div class="paper-highlight"></div><div class="paper-line line-wide"></div><div class="paper-line line-mid"></div>
+            <div class="paper-footer"><span>READY WHEN YOU ARE</span><b>✳</b></div>
+          </div>
+          <div class="floating-note">IDEAS → ACTION</div>
+          <div class="floating-stamp">STUDIO<br>01</div>
+        </div>
+      </section>
+
+      <section class="workspace-strip" aria-label="Workspace summary">
+        <div class="summary-cell"><span class="summary-icon">✎</span><div><strong id="draft-count">0</strong><small>Saved drafts</small></div></div>
+        <div class="summary-divider"></div>
+        <div class="summary-cell"><span class="summary-icon icon-sand">▦</span><div><strong id="schedule-count">0</strong><small>Planned posts</small></div></div>
+        <div class="summary-divider"></div>
+        <div class="summary-cell"><span class="summary-icon icon-mint">⌁</span><div><strong>100%</strong><small>Core tools free</small></div></div>
+      </section>
+
+      <section class="tools-section">
+        <div class="section-heading">
+          <div><p class="kicker">THE WORKBENCH</p><h2>Tools for your workflow<span>.</span></h2></div>
+          <label class="search-box"><span>⌕</span><input id="tool-search" type="search" placeholder="Find a tool..." aria-label="Find a tool"></label>
+        </div>
+        <div class="filter-row" role="group" aria-label="Filter tools">
+          <button class="filter-chip active" data-filter="all">All tools <span>09</span></button>
+          <button class="filter-chip" data-filter="write">Writing</button>
+          <button class="filter-chip" data-filter="organize">Organize</button>
+          <button class="filter-chip" data-filter="utility">Utilities</button>
+        </div>
+        <div class="tool-grid" id="tool-grid">
+          <button class="tool-card card-feature" data-open="composer" data-category="write" data-search="post composer writing telegram draft preview formatting">
+            <span class="card-index">01 / WRITE</span><span class="card-glyph glyph-ink">T<span>✳</span></span>
+            <span class="card-title">Post Composer</span><span class="card-desc">Write, format and preview a Telegram post before publishing.</span><span class="card-link">Open composer <b>↗</b></span>
+          </button>
+          <button class="tool-card" data-open="counter" data-category="write" data-search="caption character word counter text cleaner">
+            <span class="card-index">02 / WRITE</span><span class="card-glyph glyph-peach">Aa</span>
+            <span class="card-title">Caption Check</span><span class="card-desc">Count words, check length and clean up text.</span><span class="card-link">Check text <b>↗</b></span>
+          </button>
+          <button class="tool-card" data-open="hashtags" data-category="write" data-search="hashtag library save organize tags">
+            <span class="card-index">03 / WRITE</span><span class="card-glyph glyph-lilac">#</span>
+            <span class="card-title">Hashtag Library</span><span class="card-desc">Keep useful tags grouped and ready to copy.</span><span class="card-link">Manage tags <b>↗</b></span>
+          </button>
+          <button class="tool-card" data-open="planner" data-category="organize" data-search="content planner calendar schedule posts">
+            <span class="card-index">04 / ORGANIZE</span><span class="card-glyph glyph-sage">▦</span>
+            <span class="card-title">Content Planner</span><span class="card-desc">Plan post dates and keep your publishing queue visible.</span><span class="card-link">Plan content <b>↗</b></span>
+          </button>
+          <button class="tool-card" data-open="notes" data-category="organize" data-search="notes ideas scratchpad save edit delete">
+            <span class="card-index">05 / ORGANIZE</span><span class="card-glyph glyph-sand">✎</span>
+            <span class="card-title">Idea Notes</span><span class="card-desc">Capture quick thoughts and return to them later.</span><span class="card-link">Open notes <b>↗</b></span>
+          </button>
+          <button class="tool-card" data-open="links" data-category="utility" data-search="utm link builder campaign url tracking">
+            <span class="card-index">06 / UTILITY</span><span class="card-glyph glyph-blue">↗</span>
+            <span class="card-title">Link Builder</span><span class="card-desc">Create clean campaign links with UTM parameters.</span><span class="card-link">Build a link <b>↗</b></span>
+          </button>
+          <button class="tool-card" data-open="qr" data-category="utility" data-search="qr code generator download url text">
+            <span class="card-index">07 / UTILITY</span><span class="card-glyph glyph-pink">▦</span>
+            <span class="card-title">QR Studio</span><span class="card-desc">Turn a link or short message into a downloadable QR.</span><span class="card-link">Create QR <b>↗</b></span>
+          </button>
+          <button class="tool-card" data-open="focus" data-category="organize" data-search="focus timer pomodoro stopwatch productivity">
+            <span class="card-index">08 / ORGANIZE</span><span class="card-glyph glyph-orange">◷</span>
+            <span class="card-title">Focus Room</span><span class="card-desc">A quiet timer for focused work sessions.</span><span class="card-link">Start focus <b>↗</b></span>
+          </button>
+          <button class="tool-card" data-open="convert" data-category="utility" data-search="unit converter length weight temperature">
+            <span class="card-index">09 / UTILITY</span><span class="card-glyph glyph-mint">⇄</span>
+            <span class="card-title">Unit Converter</span><span class="card-desc">Convert common length, weight and temperature units.</span><span class="card-link">Convert units <b>↗</b></span>
+          </button>
+        </div>
+        <p class="empty-search" id="empty-search" hidden>No tools match that search. Try another word.</p>
+      </section>
+
+      <section class="ad-section" aria-labelledby="ad-title">
+        <div class="ad-copy">
+          <p class="kicker">OPTIONAL • SUPPORT THE PROJECT</p>
+          <h2 id="ad-title">Keep the workspace<br><span>open to everyone.</span></h2>
+          <p>Choose to view an ad if you want to support this free project. You can skip it and continue using every tool.</p>
+        </div>
+        <div class="ad-action">
+          <div class="ad-location"><span class="ad-mark">AD</span><span><strong>Optional ad placement</strong><small>Only requested when you tap below</small></span></div>
+          <button class="button button-light" id="show-ad">Show optional ad <b>↗</b></button>
+          <p id="ad-status" class="ad-status" aria-live="polite">No ad will open automatically.</p>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer-brand"><span class="brand-symbol mini"><span></span><span></span><span></span></span><strong>smarttools<span>.</span></strong></div>
+        <p>Made for thoughtful work. Your content stays on this device.</p>
+        <nav><button data-page="about">About</button><button data-page="privacy">Privacy</button><button data-page="terms">Terms</button><button data-page="support">Support</button></nav>
+        <small>SMARTTOOLS PRO · CREATOR WORKSPACE</small>
+      </footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modal" hidden>
+    <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-header"><div><p class="kicker" id="modal-kicker">WORKSPACE</p><h2 id="modal-title">Tool</h2></div><button class="close-button" id="close-modal" aria-label="Close">×</button></div>
+      <div id="modal-content"></div>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>
